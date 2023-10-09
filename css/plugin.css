@@ -3881,7 +3881,7 @@ Change the following styles to modify the appearance of the menu.
     padding: 10px 15px;
     margin: 0;
     text-decoration: none;
-    color: #B6B3C4!important;
+    color: #000 !important;
     display: block;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     -o-transition: all 0.3s ease;
@@ -3912,7 +3912,7 @@ Change the following styles to modify the appearance of the menu.
     top: 110px;
     left: 0;
     right: 0;
-    background: #1F1D26;
+    background: #fff;
     height: 230px;
     overflow-y: scroll;
 }
@@ -3937,7 +3937,8 @@ Change the following styles to modify the appearance of the menu.
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    background: #443E56;
+    /*background: #000;*/
+    color: #84c43f !important;
 }
 .slicknav_nav .slicknav_txtnode {
     margin-left: 15px;

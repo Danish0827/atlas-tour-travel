@@ -32,7 +32,7 @@
                     <div class="navbar-flex d-flex align-items-center justify-content-between w-100 pb-1 pt-1 ">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="index">
                                 <img src="images/logo-white.png" alt="image" width="200px">
                                 <img src="images/logo.png" alt="image" width="200px">
                             </a>

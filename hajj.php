@@ -1,3 +1,5 @@
+<?php include 'admin/config/dbcon.php';
+include 'admin/config/hajjFunction.php'; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
@@ -5,8 +7,10 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Yatriiworld - Travel and Tours Booking Template</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>Atlas - Hajj and Umrah Services</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
     <!-- Bootstrap core CSS -->
@@ -33,20 +37,21 @@
         }
     </style>
 </head>
-<body>
+
+<body onkeydown="if(!event.target.matches('input')&&!event.target.matches('textarea'))return!1" oncontextmenu="return!1" onselectstart="return!1" ondragstart="return!1">
 
     <?php include 'navbar.php' ?>
 
-   
-    <!-- BreadCrumb Starts -->  
-    <section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
+
+    <!-- BreadCrumb Starts -->
+    <section class="breadcrumb-main pb-6" style="background-image: url(images/slider/hajj.jpg);">
         <div class="breadcrumb-outer pt-10">
             <div class="container">
                 <div class="breadcrumb-content d-md-flex align-items-center pt-10" style="margin-bottom: -60px;">
                     <h2 style="padding-top:20px;padding-bottom:140px;" class="mb-0">Hajj</h2>
                     <nav aria-label="breadcrumb" style="margin-bottom: -30px;">
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Hajj</li>
                         </ul>
                     </nav>
@@ -55,166 +60,193 @@
         </div>
         <div class="dot-overlay"></div>
     </section>
-    <!-- BreadCrumb Ends --> 
+    <!-- BreadCrumb Ends -->
 
 
     <!-- blog starts -->
-    <section class="blog destination-b pb-6" style="padding-top: 120px;">
-        <div class="container">
-            <div class="row">
-                    <div class="col-lg-12 col-md-12 package1" style="box-shadow: 0 0 20px 0 rgb(0 0 0 / 40%);">
-                        <div class="blog-full d-flex justify-content-around mb-4">
-                            <div class="row w-100"> 
-                                <div class="col-lg-5 col-md-4 col-xs-12 blog-height">
-                                   <div class="blog-image">
-                                        <a href="blog-single.html" style="background-image: url(images/rooms/list3.jpg);"></a>
-                                    </div> 
-                                </div>
-                                <div class="col-lg-7 col-md-8 col-xs-12">
-                                    <div class="trend-content-main">
-                                        <div class="trend-content pt-2 pb-2" style="padding: 15px;">                                            
-                                            <h3 class="mb-1" style="padding-bottom: 15px;"><a href="#">Empire Prestige Causeway Bay</a></h3>
-                                            <div class="mb-2">
-                                                <h5 style="margin-left: 10px;">DECEMBER DATES: 12 DEC / 21 DEC / 26 DEC</h5>
+    <?php
+    $query = "SELECT * from hajj_package";
+    $query_run = mysqli_query($con_hajj, $query);
+    if (mysqli_num_rows($query_run) > 0) {
+        foreach ($query_run as $row) {
+            $name=$row['name']
+    ?>
+
+            <div id="<?= $row['slug'] ?>">
+                <section class="blog destination-b py-5 ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 package1" style="box-shadow: 0 0 20px 0 rgb(0 0 0 / 40%);">
+                                <div class="blog-full d-flex justify-content-around mb-4">
+                                    <div class="row w-100">
+                                        <div class="col-lg-5 col-md-4 col-xs-12 blog-height">
+                                            <div class="blog-image">
+                                                <a href="blog-single.html" style="background-image: url(admin/upload/<?= $row['image'] ?>);"></a>
                                             </div>
-                                            <div class="rating border-b pb-1 mb-1">
-                                                <p style="margin-left: 10px;" class="mb-0">(14 NIGHTS)</p>
-                                            </div>
-                                            <div class="trend-last-main">
-                                                <div class="trend-last d-flex align-items-center justify-content-between border-b pb-1 mb-2">
-                                                    <span>Breakfast</span>
-                                                    <span>Free Cancellation</span>
-                                                    <span>Pay at the hotel</span>
+                                        </div>
+                                        <div class="col-lg-7 col-md-8 col-xs-12">
+                                            <div class="trend-content-main" style="padding: 15px;">
+                                                <div class="trend-content pt-2 pb-2">
+                                                    <h3 class="mb-1" style="padding-bottom: 15px;"><?= $row['name'] ?></h3>
+                                                    <div class="mb-2">
+                                                        <h5 style="margin-left: 10px;">Dates: <?= $row['dates'] ?></h5>
+                                                    </div>
+                                                    <div class="rating border-b pb-1 mb-1">
+                                                        <p style="margin-left: 10px;" class="mb-0"><?= $row['days'] ?></p>
+                                                    </div>
+                                                    <!--<div class="trend-last-main">-->
+                                                    <!--    <div class="trend-last d-flex align-items-center justify-content-between border-b pb-1 mb-2">-->
+                                                    <!--        <span>Breakfast</span>-->
+                                                    <!--        <span>Free Cancellation</span>-->
+                                                    <!--        <span>Pay at the hotel</span>-->
+                                                    <!--    </div>-->
+                                                    <!--</div>-->
+
+                                                    <div style="padding: 20px 0;" class="trend-daily">
+                                                        <h4 class="mb-0 pink font-weight-bold">From &#8377;<?php $amount = $row['price'];
+                                                                                                            $price = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amount);
+                                                                                                            echo $price; ?> <small>/ person</small></h4>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="trend-daily">
-                                                <h4 class="mb-0 pink font-weight-bold">From &#8377;1,06,000.00 <small>/ person</small></h4>
-                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 dkjasdhif" style="display: flex;">
-                            <div class="col-md-6">
-                            <div class="sidebar-item mb-4" style="border: 1px solid;padding: 30px;">
-                                <h3 class="">BUDGET</h3>
-                                <ul class="sidebar-categorysed">                                    
-                                    <li><td><i class="fa fa-kaaba pink mr-1" aria-hidden="true"></i> MAKKAH : <dync>LE MERIDIEN TOWERS</dync></td></li>
-                                    <li><td><i class="fa fa-mosque pink mr-1" aria-hidden="true"></i> MADINAH : <dync>MUKHTARA INTERNATIONAL </dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 4 IN A ROOM : <dync>Rs. 1,06,000</dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 3 IN A ROOM : <dync>Rs. 1,13,000</dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 2 IN A ROOM : <dync>Rs. 1,24,000</dync></td></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-item mb-4" style="border: 1px solid;padding: 30px;">
-                                <h2 class="" style="text-align: center;">PREMIUM</h2>
-                                <ul class="sidebar-categorysed">
-                                    <li><td><i class="fa fa-kaaba pink mr-1" aria-hidden="true"></i> MAKKAH : <dync>AZKA AL SAFA </dync></td></li>
-                                    <li><td><i class="fa fa-mosque pink mr-1" aria-hidden="true"></i> MADINAH : <dync>MUKHTARA INTERNATIONAL</dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 4 IN A ROOM : <dync>Rs. 1,21,000</dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 3 IN A ROOM : <dync>Rs. 1,34,000</dync></td></li>
-                                    <li><td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 2 IN A ROOM : <dync>Rs. 1,55,000</dync></td></li>
-                                </ul>
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            <div class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
-                            <div class="accrodion active">
-                                <div class="accrodion-title">
-                                    <h5 class="mb-0">Notes</h5>
-                                </div>
-                                <div class="accrodion-content" style="display: block;">
-                                    <div class="inner">
-                                    <div class="desc-boxsed">
-                                        <ul>
-                                            <li><i class="fa fa-check pink mr-1"></i> Azka Al Safa Makkah 5.0 Star Hotel Is 5 Minutes Walking Distance From Haram.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Le Meridian Towers 5.0 Star Hotel Operates with 24 Hrs Bus Service To/From Haram.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Mukhtara International 3.0 Star Hotel Is 5 Minutes Walking Distance From Haram.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Infant Below 2 Years Rs. 30,000 </li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Child Below 12 Years Without Bed @ Rs. 78,000.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Child Below 12 Years With Bed @ Rs. 6,000 Less From Adult Cost. </li>
-                                        </ul>
+                                <div class="col-md-12 dkjasdhif" style="display: flex;">
+                                    <div class="col-md-6">
+                                        <?php
+                                        $query = "SELECT hajj_categories.*,hajj_package.name from hajj_categories INNER JOIN hajj_package ON hajj_categories.package_name=hajj_package.name where hajj_categories.package_name='$name'";
+
+
+                                        $query_run = mysqli_query($con_hajj, $query);
+                                        if (mysqli_num_rows($query_run) > 0) {
+                                            foreach ($query_run as $row) {
+                                        ?>
+                                                <div class="sidebar-item mb-4" style="border: 1px solid;padding: 30px;">
+
+                                                    <h3 class=""><?= $row['category_name']; ?></h3>
+                                                    <ul class="sidebar-categorysed">
+                                                        <li>
+                                                            <td><i class="fa fa-kaaba pink mr-1" aria-hidden="true"></i> MAKKAH : <dync><?= $row['makkah']; ?></dync>
+                                                            </td>
+                                                        </li>
+                                                        <li>
+                                                            <td><i class="fa fa-mosque pink mr-1" aria-hidden="true"></i> MADINAH : <dync><?= $row['madina']; ?></dync>
+                                                            </td>
+                                                        </li>
+                                                        <li>
+                                                            <td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 4 IN A ROOM : <dync><?= $row['4_in_room']; ?></dync>
+                                                            </td>
+                                                        </li>
+                                                        <li>
+                                                            <td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 3 IN A ROOM : <dync><?= $row['3_in_room']; ?></dync>
+                                                            </td>
+                                                        </li>
+                                                        <li>
+                                                            <td><i class="fa fa-users pink mr-1" aria-hidden="true"></i> 2 IN A ROOM : <dync><?= $row['2_in_room']; ?></dync>
+                                                            </td>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                        <?php    }
+                                        } else {
+                                            echo "<h4>No Records Found.!</h4>";
+                                        }
+                                        ?>
+
                                     </div>
-                                    </div><!-- /.inner -->
-                                </div>
-                            </div>
-                            <div class="accrodion">
-                                <div class="accrodion-title">
-                                    <h5 class="mb-0">Package Includes </h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                    <div class="desc-boxsed">
-                                        <ul>
-                                            <li><i class="fa fa-check pink mr-1"></i> Return Airfare With Saudi Airlines.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> 14 Nights Accommodation.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Daily Breakfast, lunch & Dinner.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Complimentary Umrah Kit.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> 5 Liters Zam Zam.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Inclusive Of 5% GST. </li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Umrah Visa With Insurance.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Round Trip Transportation.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Local Ziyarat in Makkah & Madinah.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Unlimited Daily Laundry.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Baggage allowance: 23 Kgs + 23 Kgs + 7 Kgs .</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Inclusive of 5% TCS. </li>
-                                        </ul>
+                                    <div class="col-md-6">
+                                        <?php
+                                        $query = "SELECT hajj_package_detail.*,hajj_package.name from hajj_package_detail INNER JOIN hajj_package ON hajj_package_detail.package_name=hajj_package.name where hajj_package_detail.package_name='$name'";
+                                        $query_run = mysqli_query($con_hajj, $query);
+                                        if (mysqli_num_rows($query_run) > 0) {
+                                            foreach ($query_run as $row) {
+                                        ?>
+                                                <div class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
+                                                    <div class="accrodion">
+                                                        <div class="accrodion-title">
+                                                            <h5 class="mb-0">Notes</h5>
+                                                        </div>
+                                                        <div class="accrodion-content" style="display: block;">
+                                                            <div class="inner">
+                                                                <div class="desc-boxsed">
+                                                                    <?= $row['notes']; ?>
+                                                                </div>
+                                                            </div><!-- /.inner -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="accrodion">
+                                                        <div class="accrodion-title">
+                                                            <h5 class="mb-0">Package Includes </h5>
+                                                        </div>
+                                                        <div class="accrodion-content" style="display: none;">
+                                                            <div class="inner">
+                                                                <div class="desc-boxsed">
+                                                                    <ul>
+                                                                        <?= $row['includes']; ?>
+                                                                    </ul>
+                                                                </div>
+                                                            </div><!-- /.inner -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="accrodion">
+                                                        <div class="accrodion-title">
+                                                            <h5 class="mb-0">Booking Requirements </h5>
+                                                        </div>
+                                                        <div class="accrodion-content" style="display: none;">
+                                                            <div class="inner">
+                                                                <div class="desc-boxsed">
+                                                                    <ul>
+                                                                        <?= $row['requirements']; ?>
+                                                                    </ul>
+                                                                </div>
+                                                            </div><!-- /.inner -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="accrodion">
+                                                        <div class="accrodion-title">
+                                                            <h5 class="mb-0">Package Excludes, Terms & Conditions</h5>
+                                                        </div>
+                                                        <div class="accrodion-content" style="display: none;">
+                                                            <div class="inner">
+                                                                <div class="desc-boxsed">
+                                                                    <ul>
+                                                                        <?= $row['tnc']; ?>
+                                                                    </ul>
+                                                                </div>
+                                                            </div><!-- /.inner -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            }
+                                        } else {
+                                            echo "<h4>No Records Found.!</h4>";
+                                        }
+                                        ?>
                                     </div>
-                                    </div><!-- /.inner -->
                                 </div>
                             </div>
-                            <div class="accrodion">
-                                <div class="accrodion-title">
-                                    <h5 class="mb-0">Booking Requirements </h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                    <div class="desc-boxsed">
-                                        <ul>
-                                            <li><i class="fa fa-check pink mr-1"></i> Original Passport with 6 Months Validity.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> 2 Photos (4 CM X 6 CM) with White Background.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> PAN Card Copy.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Rs. 35,000/- Booking Amount By Cash, Cheque, NEFT, RTGS.</li>
-                                        </ul>
-                                    </div>
-                                    </div><!-- /.inner -->
-                                </div>
-                            </div>
-                            <div class="accrodion">
-                                <div class="accrodion-title">
-                                    <h5 class="mb-0">Package Excludes, Terms & Conditions</h5>
-                                </div>
-                                <div class="accrodion-content" style="display: none;">
-                                    <div class="inner">
-                                    <div class="desc-boxsed">
-                                        <ul>
-                                            <li><i class="fa fa-check pink mr-1"></i> Any other Items / Services which are not mentioned in Package.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Any Increase in the Tour Cost or Airfare, difference will be taken by the Passenger.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> All Payments Should be received 15 Days Prior to Departure Date.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> If any change in Hotels mentioned in brochure, Similar alternative will be Provided.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Booking Is Non Refundable Within 25 Days of Departure.</li>
-                                            <li><i class="fa fa-check pink mr-1"></i> Tour Cost Calculated @ Rs. 22.15 = 1 SAR. </li>
-                                        </ul>
-                                    </div>
-                                    </div><!-- /.inner -->
-                                </div>
-                            </div>
-                        </div>
-                            </div>
+
                         </div>
                     </div>
+                </section>
             </div>
-        </div>
-    </section>
-                        
+
+    <?php
+        }
+    } else {
+        echo "<h4>No Records Found.!</h4>";
+    }
+
+    ?>
+
     <!-- footer starts -->
-    
+
     <?php include 'footer.php' ?>
 
     <!-- footer ends -->
-    
+
     <!-- Back to top start -->
     <div id="back-to-top">
         <a href="#"></a>
@@ -242,8 +274,8 @@
                 <div class="modal-body p-0">
                     <div class="login-content p-4 text-center">
                         <div class="login-title section-border">
-                            <h3 class="pink mb-1">Register</h3>  
-                            <p>Access thousands of online classes in design, business, and more!</p>                  
+                            <h3 class="pink mb-1">Register</h3>
+                            <p>Access thousands of online classes in design, business, and more!</p>
                         </div>
                         <div class="login-form text-center">
                             <form>
@@ -275,7 +307,7 @@
                         </div>
                         <div class="sign-up">
                             <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
-                        </div>                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -294,7 +326,7 @@
                 <div class="modal-body p-0">
                     <div class="login-content p-4 text-center">
                         <div class="login-title section-border">
-                            <h3 class="pink">Login</h3>                    
+                            <h3 class="pink">Login</h3>
                         </div>
                         <div class="login-form">
                             <form>
@@ -319,21 +351,21 @@
                         </div>
                         <div class="sign-up">
                             <p class="m-0">Do not have an account? <a href="login.html" class="pink">Sign Up</a></p>
-                        </div>                
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- header side menu --> 
+    <!-- header side menu -->
     <div class="header_sidemenu">
         <div class="header_sidemenu_in">
             <div class="menu">
                 <div class="close-menu">
                     <i class="fa fa-times white"></i>
                 </div>
-                 <div class="m-contentmain">
+                <div class="m-contentmain">
                     <div class="cart-main">
                         <div class="cart-box">
                             <div class="popup-container">
@@ -402,7 +434,7 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
             <div class="overlay hide"></div>
         </div>
@@ -417,4 +449,5 @@
     <script src="js/custom-date.js"></script>
     <script src="js/custom-accordian.js"></script>
 </body>
+
 </html>

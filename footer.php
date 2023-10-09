@@ -1,6 +1,6 @@
 <style>
     a.dkfgrfh:hover {
-    color: #fba319 !important;
+    color: #fba319;
 }
     @media screen and (min-width:0px) and (max-width:767px){
         .col-md-12.dkjasdhif {
@@ -49,7 +49,7 @@
                     </div> -->
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-4">
                         <div class="footer-links safgfge">
-                            <h4 class="black fetyj" style="color: #faa416 !important;">Services</h4>
+                            <h4 class="black fetyj" style="color: #faa416 !important;">Quick Links</h4>
                             <ul>
                                 <li><a href="index"><strong>Home</strong></a></li>
                                 <li><a href="umrah"><strong>Umrah</strong></a></li>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-4">
                         <div class="footer-links">
-                            <h4 class="black fetyj" style="color: #faa416 !important;">Newsletter</h4>
+                            <h4 class="black fetyj" style="color: #faa416 !important;">Contact</h4>
                             <ul>
                                 <li style="line-height: 1.5;"><strong>Location:</strong> Shop No. 2, Haji Mahal,<br> 53 Mohammed Ali Rd, Mumbai,<br> Maharashtra 400003</li>
                                 <li><strong>Email:</strong><a href="mailto:info@awt.co.in"> info@awt.co.in</a></li>
@@ -88,12 +88,9 @@
                     <p class="m-0 black">© copyright Atlas. All Rights Reserved</p>
                 </div>
                 <div class="copyright-text col-md-6">
-                    <p style="text-align: right;" class="m-0 black">Crafted By <a class="dkfgrfh" style="color: #83c442;" href="https://sagartech.co.in/">Sagar Tech - Technical Solution</a></p>
+                    <p style="text-align: right;" class="m-0 black">Crafted By <a class="dkfgrfh" style="color: #ec544c;" href="https://sagartech.co.in/">Sagar Tech - Technical Solution</a></p>
                 </div>
             </div>
         </div>
     </footer>
     <!-- footer ends -->
-
-
-

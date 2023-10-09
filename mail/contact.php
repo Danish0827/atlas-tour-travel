@@ -80,7 +80,7 @@ if(get_magic_quotes_gpc()) {
 
 //$address = "example@themeforest.net";
 
-$address = "cyclone.themes@gmail.com";
+$address = "s.danish0827@gmail.com";
 
 
 

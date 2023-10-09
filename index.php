@@ -1,12 +1,16 @@
+<?php include 'admin/config/dbcon.php'; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
+<!-- danish -->
 
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Yatriiworld - Travel and Tours Booking Template</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <title>Atlas - Hajj and Umrah Services</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
     <!-- Bootstrap core CSS -->
@@ -22,9 +26,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
     <link rel="stylesheet" href="fonts/line-icons.css" type="text/css">
-    
+
 </head>
-<body>
+
+<body onkeydown="if(!event.target.matches('input')&&!event.target.matches('textarea'))return!1" oncontextmenu="return!1" onselectstart="return!1" ondragstart="return!1">
 
     <?php include 'navbar.php' ?>
 
@@ -35,45 +40,45 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                           <div class="slide-image" style="background-image:url(images/slider/1.jpg)"></div>
-                           <div class="swiper-content container">
+                            <div class="slide-image" style="background-image:url(images/slider/slider1.jpg)"></div>
+                            <div class="swiper-content container">
                                 <h4 class="blue">Amazing Places</h4>
                                 <h1 class="white mb-4">Explore Your Life Travel Where You Want</h1>
                                 <a href="#" class="per-btn">
-                                  <span class="white">Discover</span>
-                                <i class="fa fa-arrow-right white"></i>
+                                    <span class="white">Discover</span>
+                                    <i class="fa fa-arrow-right white"></i>
                                 </a>
                             </div>
                             <div class="overlay"></div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                            <div class="slide-image" style="background-image:url(images/slider/2.jpg)"></div>
+                            <div class="slide-image" style="background-image:url(images/slider/slider2.jpg)"></div>
                             <div class="swiper-content container">
                                 <h4 class="blue">Feel Free To Travel</h4>
                                 <h1 class="white mb-4">Make you Free to <span>travel</span> with us</h1>
                                 <a href="#" class="per-btn">
-                                  <span class="white">Discover</span>
-                                  <i class="fa fa-arrow-right white"></i>
+                                    <span class="white">Discover</span>
+                                    <i class="fa fa-arrow-right white"></i>
                                 </a>
                             </div>
                             <div class="overlay"></div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="slide-inner">
-                           <div class="slide-image" style="background-image:url(images/slider/3.jpg)"></div>
-                           <div class="swiper-content container">
+                            <div class="slide-image" style="background-image:url(images/slider/slider3.jpg)"></div>
+                            <div class="swiper-content container">
                                 <h4 class="blue">Trip For Your Kids</h4>
                                 <h1 class="white mb-4"><span>Sensation Ice Trip</span> Is Coming For Kids</h1>
                                 <a href="#" class="per-btn">
-                                  <span class="white">Discover</span>
-                                  <i class="fa fa-arrow-right white"></i>
+                                    <span class="white">Discover</span>
+                                    <i class="fa fa-arrow-right white"></i>
                                 </a>
                             </div>
                             <div class="overlay"></div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 <!-- Add Arrows -->
@@ -182,133 +187,89 @@
     </section>
     <!-- why us ends -->
 
-<!-- Umrah starts -->
-<section class="top-deals bg-grey pt-9">
+    <!-- Umrah starts -->
+    <section class="top-deals bg-grey pt-9">
         <div class="container">
             <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
                 <h2 class="m-0"><span>Umrah</span></h2>
                 <p class="mb-0">Travel has helped us to understand the meaning of life and it has helped us become better people. Each time we travel, we see the world with new eyes.</p>
-            </div> 
+            </div>
+
             <div class="row team-slider">
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal1.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> United Kingdom</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
+                <?php
+                $query = "SELECT * FROM package";
+                $query_run = mysqli_query($con, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                    foreach ($query_run as $row) {
+                ?>
+                        <div class="col-lg-4 slider-item">
+                            <div class="slider-image">
+                                <img src="admin/upload/<?= $row['image']; ?>" ; alt="image">
+                            </div>
+                            <div class="slider-content">
+                                <h6 class="font-weight-normal pink"><?= $row['days']; ?></h6>
+                                <h4><a href="umrah#<?= $row['slug']; ?>"><?= $row['name'] ?></a></h4>
+                                <p>Dates: <?= $row['dates'] ?></p>
+                                <div class="deal-price">
+                                    <p class="price font-weight-bold pink mb-0">From <span>₹ <?php $amount = $row['price'];
+                                                                                                $price = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amount);
+                                                                                                echo $price; ?> </span></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal2.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
-                        <h4><a href="#">Save big on hotels!</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal3.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> South Korea</h6>
-                        <h4><a href="#">Experience Europe Your Way</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal4.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> Germany</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    }
+                } else {
+                    echo "<h4>No Records Found.!</h4>";
+                }
+
+                ?>
+
 
             </div>
+
         </div>
     </section>
     <!-- umrah ends -->
 
 
-<!-- Hajj starts -->
-<section class="top-deals bg-grey pt-9">
+    <!-- Hajj starts -->
+    <section class="top-deals bg-grey pt-9">
         <div class="container">
             <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
                 <h2 class="m-0"><span>Hajj</span></h2>
                 <p class="mb-0">Travel has helped us to understand the meaning of life and it has helped us become better people. Each time we travel, we see the world with new eyes.</p>
-            </div> 
+            </div>
             <div class="row team-slider">
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal1.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> United Kingdom</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
+                <?php
+                $query = "SELECT * FROM hajj_package";
+                $query_run = mysqli_query($con_hajj, $query);
+                if (mysqli_num_rows($query_run) > 0) {
+                    foreach ($query_run as $row) {
+                ?>
+                        <div class="col-lg-4 slider-item">
+                            <div class="slider-image">
+                                <img src="admin/upload/<?= $row['image']; ?>" ; alt="image">
+                            </div>
+                            <div class="slider-content">
+                                <h6 class="font-weight-normal pink"><?= $row['days']; ?></h6>
+                                <h4><a href="hajj#<?= $row['slug']; ?>"><?= $row['name'] ?></a></h4>
+                                <p>Dates: <?= $row['dates'] ?></p>
+                                <div class="deal-price">
+                                    <p class="price font-weight-bold pink mb-0">From <span>₹ <?php $amount = $row['price'];
+                                                                                                $price = preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $amount);
+                                                                                                echo $price; ?> </span></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal2.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> Thailand</h6>
-                        <h4><a href="#">Save big on hotels!</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal3.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> South Korea</h6>
-                        <h4><a href="#">Experience Europe Your Way</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 slider-item">
-                    <div class="slider-image">
-                        <img src="images/new-deal/deal4.jpg" alt="image">
-                    </div>
-                    <div class="slider-content">
-                        <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> Germany</h6>
-                        <h4><a href="#">Earning Asiana Club Miles</a></h4>
-                        <p>With upto 30% Off, experience Europe your way!</p>
-                        <div class="deal-price">
-                            <p class="price font-weight-bold pink mb-0">From <span>$250.00</span></p>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    }
+                } else {
+                    echo "<h4>No Records Found.!</h4>";
+                }
+
+                ?>
+
 
             </div>
         </div>
@@ -328,19 +289,19 @@
                             <div class="about-imagelist">
                                 <ul class="d-flex justify-content-between">
                                     <li class="mr-2">
-                                        <img src="images/destination/destination7.jpg" alt="">
+                                        <img src="images/bg/about1-min.png" alt="">
                                     </li>
                                     <li class="mr-2">
-                                        <img src="images/destination/destination5.jpg" alt="">
+                                        <img src="images/bg/about2-min.png" alt="">
                                     </li>
                                     <li class="mr-2">
-                                        <img src="images/destination/destination6.jpg" alt="">
+                                        <img src="images/bg/about3-min.png" alt="">
                                     </li>
                                     <li class="mr-2">
-                                        <img src="images/destination/destination3.jpg" alt="">
+                                        <img src="images/bg/about4-min.png" alt="">
                                     </li>
                                     <li>
-                                        <img src="images/destination/destination4.jpg" alt="">
+                                        <img src="images/bg/about5-min.png" alt="">
                                     </li>
                                 </ul>
                             </div>
@@ -348,17 +309,17 @@
                     </div>
                     <div class="col-lg-6 col-sm-12 mb-4">
                         <div class="about-image">
-                            <img src="images/destination/destination12.jpg" alt="">
+                            <img src="images/bg/about.jpg" alt="">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
     <!-- about-us ends -->
 
-    
+
 
 
     <!-- Counter -->
@@ -371,7 +332,7 @@
                             <i class="fa fa-users white mb-1"></i>
                             <h3 class="value mb-0 white">100</h3>
                             <h4 class="m-0 white">Happy Customers</h4>
-                        </div>    
+                        </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
@@ -379,7 +340,7 @@
                             <i class="fa fa-plane white mb-1"></i>
                             <h3 class="value mb-0 white">50</h3>
                             <h4 class="m-0 white">Amazing Tours </h4>
-                        </div>    
+                        </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12mb-4">
@@ -387,7 +348,7 @@
                             <i class="fa fa-chart-bar white mb-1"></i>
                             <h3 class="value mb-0 white">3472</h3>
                             <h4 class="m-0 white">In Business</h4>
-                        </div>    
+                        </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 mb-4">
@@ -395,18 +356,18 @@
                             <i class="fa fa-support white mb-1"></i>
                             <h3 class="value mb-0 white">523</h3>
                             <h4 class="m-0 white">Support Cases </h4>
-                        </div>    
+                        </div>
                     </div>
 
                 </div>
-            </div> 
+            </div>
         </div>
     </section>
     <!-- End Counter -->
 
-  
 
-    
+
+
 
     <!-- testomonial start -->
     <section class="testimonial pb-10 pt-9" style="background-image: url(images/bg/bg2.jpg);">
@@ -414,7 +375,7 @@
             <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
                 <h2 class="m-0 white">What <span>People Say About Us</span></h2>
                 <p class="mb-0 white">Travel has helped us to understand the meaning of life and it has helped us become better people. Each time we travel, we see the world with new eyes.</p>
-            </div> 
+            </div>
             <div class="row review-slider1">
                 <div class="col-sm-4">
                     <div class="testimonial-item">
@@ -448,7 +409,7 @@
                                 <i class="fa fa-quote-left"></i>
                             </div>
                             <p class="description mb-0">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                             </p>
                         </div>
                         <div class="author-title d-flex align-items-center">
@@ -495,9 +456,9 @@
         </div>
         <div class="overlay"></div>
     </section>
-    <!-- testimonial ends --> 
+    <!-- testimonial ends -->
 
-    
+
 
     <!-- cta-horizon starts -->
     <div class="cta-horizon bg-blue pt-4 pb-2">
@@ -509,19 +470,19 @@
     <!-- cta-horizon Ends -->
 
     <!-- footer starts -->
-    
+
     <?php include 'footer.php' ?>
 
     <!-- footer ends -->
-    
-    <!-- Back to top start -->  
+
+    <!-- Back to top start -->
     <div id="back-to-top">
         <a href="#"></a>
     </div>
     <!-- Back to top ends -->
 
     <!-- Register Modal -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bordernone p-0">
@@ -532,8 +493,8 @@
                 <div class="modal-body p-0">
                     <div class="login-content p-4 text-center">
                         <div class="login-title section-border">
-                            <h3 class="pink mb-1">Register</h3>  
-                            <p>Access thousands of online classes in design, business, and more!</p>                  
+                            <h3 class="pink mb-1">Register</h3>
+                            <p>Access thousands of online classes in design, business, and more!</p>
                         </div>
                         <div class="login-form text-center">
                             <form>
@@ -565,7 +526,7 @@
                         </div>
                         <div class="sign-up">
                             <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
-                        </div>                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -584,7 +545,7 @@
                 <div class="modal-body p-0">
                     <div class="login-content p-4 text-center">
                         <div class="login-title section-border">
-                            <h3 class="pink">Login</h3>                    
+                            <h3 class="pink">Login</h3>
                         </div>
                         <div class="login-form">
                             <form>
@@ -609,21 +570,21 @@
                         </div>
                         <div class="sign-up">
                             <p class="m-0">Do not have an account? <a href="login.html" class="pink">Sign Up</a></p>
-                        </div>                
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- header side menu --> 
+    <!-- header side menu -->
     <div class="header_sidemenu">
         <div class="header_sidemenu_in">
             <div class="menu">
                 <div class="close-menu">
                     <i class="fa fa-times white"></i>
                 </div>
-                 <div class="m-contentmain">
+                <div class="m-contentmain">
                     <div class="cart-main">
                         <div class="cart-box">
                             <div class="popup-container">
@@ -692,7 +653,7 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
             <div class="overlay hide"></div>
         </div>
@@ -709,4 +670,5 @@
     <script src="js/custom-nav.js"></script>
     <script src="js/custom-date.js"></script>
 </body>
+
 </html>

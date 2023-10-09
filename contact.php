@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Yatriiworld - Travel and Tours Booking Template</title>
+    <title>Atlas - Hajj and Umrah Services</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
     <!-- Bootstrap core CSS -->
@@ -23,12 +23,12 @@
 
     <link rel="stylesheet" href="fonts/line-icons.css" type="text/css">
 </head>
-<body>
+<body onkeydown="if(!event.target.matches('input')&&!event.target.matches('textarea'))return!1" oncontextmenu="return!1" onselectstart="return!1" ondragstart="return!1">
 
     <?php include 'navbar.php' ?>
     
 <!-- BreadCrumb Starts -->  
-<section class="breadcrumb-main pb-0" style="background-image: url(images/bg/bg8.jpg);">
+<section class="breadcrumb-main pb-0" style="background-image: url(images/slider/contact.jpg);">
     <div class="breadcrumb-outer pt-10">
         <div class="container">
             <div class="breadcrumb-content d-md-flex align-items-center pt-10" style="margin-bottom: -60px;">
@@ -92,7 +92,7 @@
 
                             <form method="post" action="#" name="contactform" id="contactform">
                                 <div class="form-group">
-                                    <input type="text" name="first_name" class="form-control" id="fname" placeholder="First Name">
+                                    <input type="text" name="first_name" class="form-control" id="fname" placeholder="Name">
                                 </div>
                                 <!-- <div class="form-group">
                                     <input type="text" name="last_name" class="form-control" id="lname" placeholder="Last Name">
